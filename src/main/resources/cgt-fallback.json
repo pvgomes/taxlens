@@ -1,0 +1,5 @@
+{
+  "DE": { "rate": 26.375, "note": "Germany flat capital gains tax incl. solidarity surcharge" },
+  "PL": { "rate": 19.0, "note": "Poland flat capital gains tax" },
+  "AE": { "rate": 0.0, "note": "UAE has no personal capital gains tax" }
+}
