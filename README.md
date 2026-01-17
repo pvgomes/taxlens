@@ -1,5 +1,16 @@
 # TaxLens
 
+## Frontend (Tailwind)
+
+- A minimal static frontend is available under `src/main/resources/static`.
+- Start the Spring Boot backend and open http://localhost:8080 to load the UI.
+
+Run:
+
+```bash
+mvn spring-boot:run
+```
+
 TaxLens is a small Java web application that shows **headline capital gains tax rates by country**.
 
 It is designed to be:

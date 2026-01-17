@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>TaxLens — CGT lookup</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-gray-50 min-h-screen flex items-center justify-center p-6">
+    <div class="max-w-xl w-full bg-white shadow rounded-lg p-6">
+      <h1 class="text-2xl font-semibold mb-4">TaxLens — Capital Gains Tax</h1>
+
+      <form id="countryForm" class="flex gap-2" autocomplete="off">
+        <input id="countryInput" aria-label="country" class="flex-1 border rounded px-3 py-2" placeholder="Country code (e.g., DE, PL, AE)" />
+        <button class="bg-blue-600 text-white px-4 py-2 rounded">Lookup</button>
+      </form>
+
+      <div id="result" class="mt-4"></div>
+    </div>
+
+    <script src="/app.js"></script>
+  </body>
+</html>
