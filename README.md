@@ -1,75 +1,69 @@
 # TaxLens
 
-## Frontend (Tailwind)
+Minimal Java web app that returns simplified capital gains tax (CGT) info by country.
 
-- A minimal static frontend is available under `src/main/resources/static`.
-- Start the Spring Boot backend and open http://localhost:8080 to load the UI.
+Frontend
+- A small Tailwind UI is available at `src/main/resources/static` and served from the application root.
 
-Run:
+Quick run
+- Requirements: Java 17, Maven
+- Start the app:
 
 ```bash
 mvn spring-boot:run
 ```
 
-TaxLens is a small Java web application that shows **headline capital gains tax rates by country**.
+Open the UI: http://localhost:8080
+API endpoint: http://localhost:8080/api/cgt?country=DE
 
-It is designed to be:
-- simple
-- fast
-- easy to understand
+Testing
+- Run the full test suite:
 
-This project is **informational only** and does not provide tax advice.
-
-## What it does
-Given a country code, TaxLens returns:
-- a simplified capital gains tax rate
-- a short explanatory note
-
-Example:
-
-**GET /api/cgt?country=DE**
-
-Response:
-```json
-{
-  "rate": 26.375,
-  "note": "Germany flat capital gains tax incl. solidarity surcharge"
-}
+```bash
+mvn test
 ```
 
-What it does NOT do
+- Run a single test class (example):
 
-It does not calculate taxes
+```bash
+mvn -Dtest=com.taxlens.service.CgtServiceTest test
+```
 
-It does not handle tax brackets
+- Run a single test method (example):
 
-It does not consider residency or asset type
+```bash
+mvn -Dtest=com.taxlens.service.CgtServiceTest#usesExternalWhenConfigured test
+```
 
-It does not replace professional advice
+Notes on tests
+- Tests use `spring-boot-starter-test` (JUnit, Mockito, MockMvc).
+- `CgtServiceTest` covers the fallback JSON and the external-provider path (mocked `RestTemplate`).
+- `CgtControllerTest` uses `@WebMvcTest` and a mocked `CgtService` to verify the HTTP layer.
 
-Tech stack
+Configuration
+- To enable an external CGT provider, set `cgt.external.url` in `src/main/resources/application.properties` or as an environment property. Example:
 
-Java 17
+```properties
+cgt.external.url=https://example.com/api/cgt
+```
 
-Spring Boot 3.3.x
+Fallback data
+- The application ships a fallback JSON at `src/main/resources/cgt-fallback.json` used when no external provider is configured or when the external call fails.
 
-Maven
+Development tips
+- To build the runnable JAR:
 
-Embedded Tomcat
+```bash
+mvn -DskipTests package
+```
 
-How to run
+- To run the packaged JAR:
 
-Requirements:
+```bash
+java -jar target/taxlens-0.0.1-SNAPSHOT.jar
+```
 
-Java 17
+Questions or next steps
+- Add CI to run tests on push (I can add a GitHub Actions workflow).
+- Add code coverage reporting (Jacoco) if you want coverage metrics.
 
-Maven (via SDKMAN recommended)
-
-Run:
-
-mvn clean spring-boot:run
-
-
-Open:
-
-http://localhost:8080/api/cgt?country=DE
