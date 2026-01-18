@@ -15,11 +15,12 @@ import java.util.Map;
 public class CgtService {
 
   private final Map<String, Map<String, Object>> fallback;
-  private final RestTemplate rest = new RestTemplate();
+  private final RestTemplate rest;
   private final String externalUrl;
   private final ObjectMapper mapper = new ObjectMapper();
 
-  public CgtService(@Value("${cgt.external.url:}") String externalUrl) {
+  public CgtService(RestTemplate rest, @Value("${cgt.external.url:}") String externalUrl) {
+    this.rest = rest;
     this.externalUrl = externalUrl == null ? "" : externalUrl.trim();
     this.fallback = loadFallback();
   }
